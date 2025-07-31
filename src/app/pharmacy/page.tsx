@@ -31,10 +31,9 @@ import {
   DollarCircleOutlined
 } from '@ant-design/icons';
 import HospitalLayout from '@/components/layout/HospitalLayout';
-import { usePaymentStore } from '@/lib/store/paymentStore';
 import type { Prescription } from '@/lib/types';
 
-const { Text, Title } = Typography;
+const { Text } = Typography;
 
 export default function PharmacyPage() {
   const [selectedPrescription, setSelectedPrescription] = useState<Prescription | null>(null);
@@ -42,8 +41,7 @@ export default function PharmacyPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [form] = Form.useForm();
 
-  // Payment verification hooks
-  const { verifyPaymentForService, verifyPaymentForPrescription, getServicePaymentStatus } = usePaymentStore();
+  // Payment verification hooks available for future use
 
   // Mock prescriptions data with payment verification status
   type ExtendedPrescription = Prescription & { 
@@ -114,6 +112,7 @@ export default function PharmacyPage() {
       instructions: 'Complete the full antibiotic course even if feeling better.',
       status: 'pending',
       paymentVerified: false, // NO PAYMENT - CANNOT DISPENSE
+      createdAt: '2025-01-30T10:00:00Z',
       totalAmount: 1680,
       paymentStatus: 'pending'
     },
@@ -139,6 +138,7 @@ export default function PharmacyPage() {
       instructions: 'Keep inhaler with you at all times. Seek immediate help if breathing difficulty persists.',
       status: 'pending',
       paymentVerified: false, // NO PAYMENT
+      createdAt: '2025-01-30T11:00:00Z',
       totalAmount: 3500,
       paymentStatus: 'none'
     }
@@ -168,7 +168,7 @@ export default function PharmacyPage() {
 
   const confirmDispensing = async () => {
     try {
-      const values = await form.validateFields();
+      await form.validateFields();
       
       // Update prescription status to dispensed
       setPrescriptions(prev => 
@@ -183,7 +183,7 @@ export default function PharmacyPage() {
       setDispensingModal(false);
       setSelectedPrescription(null);
       form.resetFields();
-    } catch (error) {
+    } catch {
       message.error('Please fill all required fields');
     }
   };
@@ -458,8 +458,7 @@ export default function PharmacyPage() {
                 <Form.Item label="Total Amount" name="totalAmount">
                   <Input 
                     disabled 
-                    addonBefore="₦" 
-                    formatter={(value) => value ? Number(value).toLocaleString() : ''}
+                    addonBefore="₦"
                   />
                 </Form.Item>
               </Col>

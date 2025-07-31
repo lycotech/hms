@@ -17,17 +17,11 @@ import {
   message,
   Statistic,
   Typography,
-  Divider,
   Select,
-  DatePicker,
-  TimePicker,
   Radio,
   Checkbox,
   Tabs,
-  Badge,
-  Progress,
-  List,
-  Avatar
+  Badge
 } from 'antd';
 import {
   HeartOutlined,
@@ -91,10 +85,7 @@ export default function ScreeningPage() {
   const [showVisualModal, setShowVisualModal] = useState(false);
   const [screeningQueue, setScreeningQueue] = useState(mockScreeningQueue);
 
-  const handlePatientSelect = (patientId: string) => {
-    const patient = patients.find(p => p.id === patientId);
-    setSelectedPatient(patient || null);
-  };
+  // Patient selection functionality available for future use
 
   const handleStartScreening = (queueItem: typeof mockScreeningQueue[0]) => {
     const patient = patients.find(p => p.id === queueItem.patientId);
@@ -155,8 +146,8 @@ export default function ScreeningPage() {
         setShowVitalsModal(false);
         vitalsForm.resetFields();
       }
-    } catch (error) {
-      message.error('Please fill in all required fields');
+    } catch {
+      message.error('Please fill in all required vital signs fields');
     }
   };
 
@@ -184,8 +175,8 @@ export default function ScreeningPage() {
         setShowVisualModal(false);
         visualForm.resetFields();
       }
-    } catch (error) {
-      message.error('Please fill in all required fields');
+    } catch {
+      message.error('Please fill in all required visual acuity fields');
     }
   };
 

@@ -34,7 +34,7 @@ import HospitalLayout from '@/components/layout/HospitalLayout';
 import { usePaymentStore } from '@/lib/store/paymentStore';
 import type { Payment, ServiceTier, Patient } from '@/lib/types';
 
-const { Title, Text } = Typography;
+const { Text } = Typography;
 const { Option } = Select;
 
 interface BillItem {
@@ -67,8 +67,7 @@ export default function CashierPage() {
   const { 
     addPayment, 
     getDailyRevenue, 
-    getRevenueByPaymentMethod,
-    getPendingPayments 
+    getRevenueByPaymentMethod
   } = usePaymentStore();
 
   // Mock data
@@ -134,14 +133,6 @@ export default function CashierPage() {
   const dailyRevenue = getDailyRevenue();
   const cashRevenue = getRevenueByPaymentMethod('cash');
   const cardRevenue = getRevenueByPaymentMethod('card');
-  const pendingPayments = getPendingPayments();
-
-  const startNewBill = (patient: Patient) => {
-    setSelectedPatient(patient);
-    setCurrentBill([]);
-    setBillingModal(true);
-    form.resetFields();
-  };
 
   const addServiceToBill = (serviceId: string, tier: ServiceTier, quantity: number = 1, customAmount?: number) => {
     const service = mockServices.find(s => s.id === serviceId);
@@ -229,7 +220,7 @@ export default function CashierPage() {
       setCurrentBill([]);
       form.resetFields();
 
-    } catch (error) {
+    } catch {
       message.error('Payment processing failed');
     }
   };

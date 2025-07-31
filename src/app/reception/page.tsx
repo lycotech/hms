@@ -40,13 +40,7 @@ import type { Patient } from '@/lib/types';
 const { Title, Text } = Typography;
 const { Option } = Select;
 
-interface QueueItem {
-  number: number;
-  patientName: string;
-  department: string;
-  status: string;
-  time: string;
-}
+// QueueItem interface available for future use
 
 export default function ReceptionPage() {
   const [registrationModal, setRegistrationModal] = useState(false);
@@ -124,7 +118,7 @@ export default function ReceptionPage() {
       message.success(`Patient registered successfully! Queue number: ${queueNumber}`);
       setRegistrationModal(false);
       form.resetFields();
-    } catch (error) {
+    } catch {
       message.error('Please fill all required fields');
     }
   };
@@ -146,7 +140,7 @@ export default function ReceptionPage() {
         // Show multiple results in modal
         message.info(`Found ${searchResults.length} patients`);
       }
-    } catch (error) {
+    } catch {
       message.error('Please enter search criteria');
     }
   };
@@ -227,7 +221,7 @@ export default function ReceptionPage() {
     {
       title: 'Action',
       key: 'action',
-      render: (_, record: QueueItem) => (
+      render: () => (
         <Space>
           <Button size="small" icon={<EditOutlined />}>
             Update

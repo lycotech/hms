@@ -164,8 +164,8 @@ export const usePatientStore = create<PatientState>()(
             patient.id === queueItem.patientId
               ? { 
                   ...patient, 
-                  status: status === 'completed' ? 'completed' : 
-                          status === 'in-service' ? 'in-consultation' : 'waiting'
+                  status: (status === 'completed' ? 'completed' : 
+                          status === 'in-service' ? 'in-consultation' : 'waiting') as Patient['status']
                 }
               : patient
           ) : state.patients;

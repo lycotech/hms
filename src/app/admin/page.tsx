@@ -12,8 +12,6 @@ import {
   Statistic,
   Typography,
   Divider,
-  Select,
-  DatePicker,
   Progress,
   List,
   Avatar,
@@ -22,14 +20,10 @@ import {
   Alert,
   Modal,
   Form,
-  Input,
-  InputNumber,
   Switch,
-  TreeSelect,
-  Timeline,
   Descriptions
 } from 'antd';
-import type { Dayjs } from 'dayjs';
+// Removed unused Dayjs import
 import {
   DashboardOutlined,
   TeamOutlined,
@@ -42,24 +36,18 @@ import {
   ReloadOutlined,
   ClockCircleOutlined,
   CheckCircleOutlined,
-  ExclamationCircleOutlined,
   TrophyOutlined,
   AlertOutlined,
   FileTextOutlined,
   EyeOutlined,
   PrinterOutlined,
-  CalendarOutlined,
   BankOutlined,
-  HeartOutlined,
-  PhoneOutlined
+  HeartOutlined
 } from '@ant-design/icons';
 import HospitalLayout from '@/components/layout/HospitalLayout';
-import { usePatientStore } from '@/lib/store/patientStore';
-import { usePaymentStore } from '@/lib/store/paymentStore';
-import type { Patient, Service, Payment } from '@/lib/types';
+// Store hooks available for future use
 
-const { Title, Text, Paragraph } = Typography;
-const { RangePicker } = DatePicker;
+const { Title, Text } = Typography;
 
 // Mock admin data
 const mockSystemStats = {
@@ -140,12 +128,9 @@ const mockFinancialData = {
 };
 
 export default function AdminPage() {
-  const { patients } = usePatientStore();
-  const { payments } = usePaymentStore();
   const [activeTab, setActiveTab] = useState('overview');
   const [showUserModal, setShowUserModal] = useState(false);
   const [showSystemModal, setShowSystemModal] = useState(false);
-  const [selectedDateRange, setSelectedDateRange] = useState<[Dayjs | null, Dayjs | null] | null>(null);
 
   const formatCurrency = (amount: number) => {
     return `₦${amount.toLocaleString('en-US')}`;
@@ -504,7 +489,6 @@ export default function AdminPage() {
                   title="Revenue by Service" 
                   extra={
                     <Space>
-                      <RangePicker />
                       <Button icon={<ExportOutlined />}>Export</Button>
                     </Space>
                   }

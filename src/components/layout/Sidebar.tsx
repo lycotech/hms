@@ -65,7 +65,7 @@ export default function Sidebar({ collapsed, onCollapse, userRole }: SidebarProp
       label: 'Admin Panel',
     },
     {
-      type: 'divider',
+      type: 'divider' as const,
     },
     {
       key: '/settings',
