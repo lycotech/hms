@@ -514,16 +514,7 @@ export default function DoctorPage() {
                         />
                       </Form.Item>
 
-                      <Form.Item
-                        name="assessment"
-                        label="Clinical Assessment"
-                        rules={[{ required: true, message: 'Please provide clinical assessment' }]}
-                      >
-                        <TextArea 
-                          rows={3} 
-                          placeholder="Clinical impression and differential diagnosis..."
-                        />
-                      </Form.Item>
+
 
                       <Form.Item
                         name="diagnosis"
@@ -534,7 +525,7 @@ export default function DoctorPage() {
                       </Form.Item>
 
                       <Form.Item
-                        name="plan"
+                        name="treatmentPlan"
                         label="Treatment Plan"
                         rules={[{ required: true, message: 'Please provide treatment plan' }]}
                       >

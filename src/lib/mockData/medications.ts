@@ -5,14 +5,15 @@ export const mockMedications: Medication[] = [
     id: 'MED001',
     name: 'Paracetamol',
     strength: '500mg',
-    form: 'Tablet',
+    form: 'tablet',
     manufacturer: 'Emzor Pharmaceuticals',
-    price: 250,
+    unitPrice: 250,
     stockQuantity: 500,
     minStockLevel: 50,
-    expiryDate: new Date('2025-12-31'),
+    expiryDate: '2025-12-31',
     batchNumber: 'PAR2024001',
-    category: 'Analgesic'
+    category: 'Analgesic',
+    requiresPrescription: false
   },
   {
     id: 'MED002',

@@ -136,18 +136,17 @@ export default function ScreeningPage() {
     try {
       const values = await vitalsForm.validateFields();
       if (selectedPatient) {
-        const vitalSigns: VitalSigns = {
+        const vitalSigns: Omit<VitalSigns, 'id' | 'recordedAt'> = {
           patientId: selectedPatient.id,
+          bloodPressureSystolic: values.systolic,
+          bloodPressureDiastolic: values.diastolic,
           temperature: values.temperature,
-          bloodPressure: `${values.systolic}/${values.diastolic}`,
+          weight: values.weight,
+          height: values.height,
           heartRate: values.heartRate,
           respiratoryRate: values.respiratoryRate,
           oxygenSaturation: values.oxygenSaturation,
-          weight: values.weight,
-          height: values.height,
-          bmi: parseFloat((values.weight / ((values.height / 100) ** 2)).toFixed(1)),
           notes: values.notes,
-          recordedAt: new Date(),
           recordedBy: 'Nurse Mary Johnson'
         };
         
@@ -165,14 +164,18 @@ export default function ScreeningPage() {
     try {
       const values = await visualForm.validateFields();
       if (selectedPatient) {
-        const visualAcuity: VisualAcuity = {
+        const visualAcuity: Omit<VisualAcuity, 'id' | 'recordedAt'> = {
           patientId: selectedPatient.id,
-          rightEye: values.rightEye,
-          leftEye: values.leftEye,
-          withGlasses: values.withGlasses || false,
+          rightEye: {
+            withoutGlasses: values.rightEye,
+            withGlasses: values.withGlasses ? values.rightEye : undefined
+          },
+          leftEye: {
+            withoutGlasses: values.leftEye,
+            withGlasses: values.withGlasses ? values.leftEye : undefined
+          },
           colorVision: values.colorVision,
           notes: values.visualNotes,
-          recordedAt: new Date(),
           recordedBy: 'Nurse Mary Johnson'
         };
         
@@ -367,33 +370,13 @@ export default function ScreeningPage() {
                       </Button>
                     }
                   >
-                    {selectedPatient.vitalSigns && selectedPatient.vitalSigns.length > 0 ? (
-                      <List
-                        dataSource={selectedPatient.vitalSigns.slice(-3)}
-                        renderItem={(vital, index) => (
-                          <List.Item>
-                            <List.Item.Meta
-                              avatar={<Avatar icon={<ExperimentOutlined />} />}
-                              title={`Vital Signs - ${vital.recordedAt.toLocaleDateString()}`}
-                              description={
-                                <div>
-                                  <Text>BP: {vital.bloodPressure} | HR: {vital.heartRate} bpm | Temp: {vital.temperature}°C</Text>
-                                  <br />
-                                  <Text type="secondary">By: {vital.recordedBy}</Text>
-                                </div>
-                              }
-                            />
-                          </List.Item>
-                        )}
-                      />
-                    ) : (
-                      <Alert
-                        message="No vital signs recorded"
-                        description="Click 'Record Vitals' to add vital signs for this patient."
-                        type="info"
-                        showIcon
-                      />
-                    )}
+                    <Alert
+                      message="Vital signs will be displayed here"
+                      description="Click 'Record Vitals' to add vital signs for this patient."
+                      type="info"
+                      showIcon
+                    />
+
                   </Card>
                 </Col>
 
@@ -426,26 +409,15 @@ export default function ScreeningPage() {
                   <Card title="Patient Info">
                     <Space direction="vertical" size="small" style={{ width: '100%' }}>
                       <div>
-                        <Text strong>Age:</Text> <Text>{selectedPatient.age} years</Text>
+                        <Text strong>Phone:</Text> <Text>{selectedPatient.phoneNumber}</Text>
                       </div>
                       <div>
-                        <Text strong>Gender:</Text> <Text>{selectedPatient.gender}</Text>
+                        <Text strong>Patient ID:</Text> <Text>{selectedPatient.patientNumber}</Text>
                       </div>
                       <div>
-                        <Text strong>Blood Type:</Text> <Text>{selectedPatient.bloodType}</Text>
-                      </div>
-                      <div>
-                        <Text strong>Allergies:</Text>
+                        <Text strong>Medical History:</Text>
                         <br />
-                        {selectedPatient.allergies.length > 0 ? (
-                          selectedPatient.allergies.map(allergy => (
-                            <Tag key={allergy} color="red" style={{ margin: '2px' }}>
-                              {allergy}
-                            </Tag>
-                          ))
-                        ) : (
-                          <Text type="secondary">None recorded</Text>
-                        )}
+                        <Text type="secondary">{selectedPatient.medicalHistory || 'None recorded'}</Text>
                       </div>
                     </Space>
                   </Card>

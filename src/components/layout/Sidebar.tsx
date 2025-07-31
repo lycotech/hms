@@ -18,7 +18,13 @@ import { useRouter, usePathname } from 'next/navigation';
 
 const { Sider } = Layout;
 
-export default function Sidebar() {
+interface SidebarProps {
+  collapsed: boolean;
+  onCollapse: (collapsed: boolean) => void;
+  userRole: string;
+}
+
+export default function Sidebar({ collapsed, onCollapse, userRole }: SidebarProps) {
   const router = useRouter();
   const pathname = usePathname();
 
@@ -75,6 +81,9 @@ export default function Sidebar() {
   return (
     <Sider
       width={280}
+      collapsed={collapsed}
+      collapsible
+      onCollapse={onCollapse}
       style={{
         overflow: 'auto',
         height: '100vh',
@@ -95,20 +104,24 @@ export default function Sidebar() {
         <div style={{ marginBottom: '8px' }}>
           <MedicineBoxOutlined style={{ fontSize: '32px', color: '#0066cc' }} />
         </div>
-        <div style={{ 
-          fontWeight: 'bold', 
-          fontSize: '16px', 
-          color: '#262626',
-          marginBottom: '4px'
-        }}>
-          City General Hospital
-        </div>
-        <div style={{ 
-          fontSize: '12px', 
-          color: '#8c8c8c'
-        }}>
-          Management System
-        </div>
+        {!collapsed && (
+          <>
+            <div style={{ 
+              fontWeight: 'bold', 
+              fontSize: '16px', 
+              color: '#262626',
+              marginBottom: '4px'
+            }}>
+              City General Hospital
+            </div>
+            <div style={{ 
+              fontSize: '12px', 
+              color: '#8c8c8c'
+            }}>
+              Management System
+            </div>
+          </>
+        )}
       </div>
 
       {/* User Profile Section */}
@@ -124,10 +137,12 @@ export default function Sidebar() {
             <UserOutlined />
           </Avatar>
         </Badge>
-        <div style={{ flex: 1 }}>
-          <div style={{ fontWeight: '500', fontSize: '14px' }}>Dr. Sarah Johnson</div>
-          <div style={{ fontSize: '12px', color: '#8c8c8c' }}>Administrator</div>
-        </div>
+        {!collapsed && (
+          <div style={{ flex: 1 }}>
+            <div style={{ fontWeight: '500', fontSize: '14px' }}>Dr. Sarah Johnson</div>
+            <div style={{ fontSize: '12px', color: '#8c8c8c' }}>{userRole}</div>
+          </div>
+        )}
         <Tooltip title="Notifications">
           <Badge count={3} size="small">
             <Button 
