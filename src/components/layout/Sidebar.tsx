@@ -13,6 +13,9 @@ import {
   TeamOutlined,
   NotificationOutlined,
   LogoutOutlined,
+  ClockCircleOutlined,
+  PhoneOutlined,
+  BarChartOutlined
 } from '@ant-design/icons';
 import { useRouter, usePathname } from 'next/navigation';
 
@@ -58,6 +61,21 @@ export default function Sidebar({ collapsed, onCollapse, userRole }: SidebarProp
       key: '/pharmacy',
       icon: <MedicineBoxOutlined />,
       label: 'Pharmacy',
+    },
+    {
+      key: '/queue',
+      icon: <ClockCircleOutlined />,
+      label: 'Queue Management',
+    },
+    {
+      key: '/calling',
+      icon: <PhoneOutlined />,
+      label: 'Patient Calling',
+    },
+    {
+      key: '/reports',
+      icon: <BarChartOutlined />,
+      label: 'Reports & Analytics',
     },
     {
       key: '/admin',

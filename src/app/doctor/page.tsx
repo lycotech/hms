@@ -39,7 +39,7 @@ import {
   CaretRightOutlined,
   SaveOutlined
 } from '@ant-design/icons';
-import HospitalLayout from '@/components/layout/HospitalLayout';
+// Doctor consultation page with authentication
 import { usePatientStore } from '@/lib/store/patientStore';
 import { mockMedications } from '@/lib/mockData/medications';
 import type { Patient, Consultation } from '@/lib/types';
@@ -373,8 +373,7 @@ export default function DoctorPage() {
   ];
 
   return (
-    <HospitalLayout>
-      <div style={{ padding: '24px' }}>
+      <div>
         <div style={{ marginBottom: '24px' }}>
           <Title level={2}>
             <UserOutlined className="mr-2" />
@@ -737,6 +736,5 @@ export default function DoctorPage() {
           )}
         </Drawer>
       </div>
-    </HospitalLayout>
   );
 }

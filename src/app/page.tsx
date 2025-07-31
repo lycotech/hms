@@ -11,7 +11,7 @@ import {
   CheckCircleOutlined,
   ExclamationCircleOutlined
 } from '@ant-design/icons';
-import HospitalLayout from '@/components/layout/HospitalLayout';
+// Dashboard page with authentication
 
 export default function Dashboard() {
   // Mock data for dashboard
@@ -58,12 +58,6 @@ export default function Dashboard() {
   };
 
   return (
-    <HospitalLayout 
-      title="Hospital Dashboard"
-      breadcrumbItems={[
-        { title: 'Dashboard' }
-      ]}
-    >
       <div className="p-6">
         {/* Key Metrics */}
         <Row gutter={[16, 16]} className="mb-6">
@@ -237,6 +231,5 @@ export default function Dashboard() {
           </Col>
         </Row>
       </div>
-    </HospitalLayout>
   );
 }

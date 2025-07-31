@@ -44,7 +44,6 @@ import {
   BankOutlined,
   HeartOutlined
 } from '@ant-design/icons';
-import HospitalLayout from '@/components/layout/HospitalLayout';
 // Store hooks available for future use
 
 const { Title, Text } = Typography;
@@ -232,8 +231,7 @@ export default function AdminPage() {
   };
 
   return (
-    <HospitalLayout>
-      <div style={{ padding: '24px' }}>
+    <div style={{ padding: '24px' }}>
         <div style={{ marginBottom: '24px' }}>
           <Title level={2}>
             <DashboardOutlined className="mr-2" />
@@ -778,6 +776,5 @@ export default function AdminPage() {
           </Form>
         </Modal>
       </div>
-    </HospitalLayout>
   );
 }

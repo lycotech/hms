@@ -33,7 +33,7 @@ import {
   EditOutlined
 } from '@ant-design/icons';
 import dayjs from 'dayjs';
-import HospitalLayout from '@/components/layout/HospitalLayout';
+// Reception page with authentication
 import { usePatientStore } from '@/lib/store/patientStore';
 import type { Patient } from '@/lib/types';
 
@@ -235,31 +235,6 @@ export default function ReceptionPage() {
   ];
 
   return (
-    <HospitalLayout 
-      title="Reception - Patient Registration & Queue Management"
-      breadcrumbItems={[
-        { title: 'Dashboard', href: '/' },
-        { title: 'Reception' }
-      ]}
-      userRole="reception"
-      actions={
-        <Space>
-          <Button 
-            type="primary" 
-            icon={<UserAddOutlined />}
-            onClick={() => setRegistrationModal(true)}
-          >
-            New Patient
-          </Button>
-          <Button 
-            icon={<SearchOutlined />}
-            onClick={() => setSearchModal(true)}
-          >
-            Find Patient
-          </Button>
-        </Space>
-      }
-    >
       <div className="p-6">
         {/* Reception Statistics */}
         <Row gutter={[16, 16]} className="mb-6">
@@ -566,6 +541,5 @@ export default function ReceptionPage() {
           )}
         </Modal>
       </div>
-    </HospitalLayout>
   );
 }

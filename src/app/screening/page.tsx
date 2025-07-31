@@ -34,7 +34,7 @@ import {
   FileTextOutlined,
   CaretRightOutlined
 } from '@ant-design/icons';
-import HospitalLayout from '@/components/layout/HospitalLayout';
+// Screening page with authentication
 import { usePatientStore } from '@/lib/store/patientStore';
 import type { VitalSigns, VisualAcuity, Patient } from '@/lib/types';
 
@@ -265,8 +265,7 @@ export default function ScreeningPage() {
   ];
 
   return (
-    <HospitalLayout>
-      <div style={{ padding: '24px' }}>
+    <div style={{ padding: '24px' }}>
         <div style={{ marginBottom: '24px' }}>
           <Title level={2}>
             <HeartOutlined className="mr-2" />
@@ -648,6 +647,5 @@ export default function ScreeningPage() {
           </Form>
         </Modal>
       </div>
-    </HospitalLayout>
   );
 }

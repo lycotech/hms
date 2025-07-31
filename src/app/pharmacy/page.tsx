@@ -30,7 +30,7 @@ import {
   ShoppingCartOutlined,
   DollarCircleOutlined
 } from '@ant-design/icons';
-import HospitalLayout from '@/components/layout/HospitalLayout';
+// Pharmacy page with authentication
 import type { Prescription } from '@/lib/types';
 
 const { Text } = Typography;
@@ -273,15 +273,7 @@ export default function PharmacyPage() {
   ];
 
   return (
-    <HospitalLayout 
-      title="Pharmacy - Medication Dispensing"
-      breadcrumbItems={[
-        { title: 'Dashboard', href: '/' },
-        { title: 'Pharmacy' }
-      ]}
-      userRole="pharmacy"
-    >
-      <div className="p-6">
+    <div className="p-6">
         {/* Critical Business Alert */}
         <Alert
           message="CRITICAL BUSINESS RULE"
@@ -504,6 +496,5 @@ export default function PharmacyPage() {
           </Form>
         </Modal>
       </div>
-    </HospitalLayout>
   );
 }

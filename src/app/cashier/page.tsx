@@ -22,7 +22,6 @@ import {
 } from 'antd';
 import { 
   DollarCircleOutlined,
-  ShoppingCartOutlined,
   PrinterOutlined,
   CreditCardOutlined,
   BankOutlined,
@@ -30,7 +29,7 @@ import {
   CheckCircleOutlined,
   ExclamationCircleOutlined
 } from '@ant-design/icons';
-import HospitalLayout from '@/components/layout/HospitalLayout';
+// Cashier page with authentication
 import { usePaymentStore } from '@/lib/store/paymentStore';
 import type { Payment, ServiceTier, Patient } from '@/lib/types';
 
@@ -328,23 +327,6 @@ export default function CashierPage() {
   ];
 
   return (
-    <HospitalLayout 
-      title="Cashier - Payment Processing"
-      breadcrumbItems={[
-        { title: 'Dashboard', href: '/' },
-        { title: 'Cashier' }
-      ]}
-      userRole="cashier"
-      actions={
-        <Button 
-          type="primary" 
-          icon={<ShoppingCartOutlined />}
-          onClick={() => setBillingModal(true)}
-        >
-          New Payment
-        </Button>
-      }
-    >
       <div className="p-6">
         {/* Revenue Statistics */}
         <Row gutter={[16, 16]} className="mb-6">
@@ -574,6 +556,5 @@ export default function CashierPage() {
           </Form>
         </Modal>
       </div>
-    </HospitalLayout>
   );
 }

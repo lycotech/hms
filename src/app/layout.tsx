@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ConfigProvider } from 'antd';
+import { AuthProvider } from '@/lib/context/AuthContext';
+import AppWrapper from '@/components/layout/AppWrapper';
 
 const inter = Inter({
   variable: "--font-inter",
@@ -26,10 +28,15 @@ export default function RootLayout({
             token: {
               colorPrimary: '#0066cc',
               borderRadius: 6,
+              fontFamily: inter.style.fontFamily,
             },
           }}
         >
-          {children}
+          <AuthProvider>
+            <AppWrapper>
+              {children}
+            </AppWrapper>
+          </AuthProvider>
         </ConfigProvider>
       </body>
     </html>
