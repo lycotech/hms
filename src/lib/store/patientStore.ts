@@ -36,7 +36,7 @@ interface PatientState {
   // Utility
   initializePatients: () => void;
   syncData: () => Promise<void>;
-  getOfflineChanges: () => any[];
+  getOfflineChanges: () => Patient[];
 }
 
 const generatePatientNumber = () => {
@@ -150,7 +150,7 @@ export const usePatientStore = create<PatientState>()(
         set((state) => {
           const updatedQueue = state.queue.map(q => {
             if (q.id === queueId) {
-              const updates: any = { status };
+              const updates: Partial<Queue> = { status };
               if (status === 'called') updates.calledAt = new Date().toISOString();
               if (status === 'in-service') updates.servedAt = new Date().toISOString();
               if (status === 'completed') updates.completedAt = new Date().toISOString();

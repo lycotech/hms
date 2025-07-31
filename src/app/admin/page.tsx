@@ -29,6 +29,7 @@ import {
   Timeline,
   Descriptions
 } from 'antd';
+import type { Dayjs } from 'dayjs';
 import {
   DashboardOutlined,
   TeamOutlined,
@@ -144,7 +145,7 @@ export default function AdminPage() {
   const [activeTab, setActiveTab] = useState('overview');
   const [showUserModal, setShowUserModal] = useState(false);
   const [showSystemModal, setShowSystemModal] = useState(false);
-  const [selectedDateRange, setSelectedDateRange] = useState<[any, any] | null>(null);
+  const [selectedDateRange, setSelectedDateRange] = useState<[Dayjs | null, Dayjs | null] | null>(null);
 
   const formatCurrency = (amount: number) => {
     return `₦${amount.toLocaleString('en-US')}`;

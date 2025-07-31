@@ -40,6 +40,14 @@ import type { Patient } from '@/lib/types';
 const { Title, Text } = Typography;
 const { Option } = Select;
 
+interface QueueItem {
+  number: number;
+  patientName: string;
+  department: string;
+  status: string;
+  time: string;
+}
+
 export default function ReceptionPage() {
   const [registrationModal, setRegistrationModal] = useState(false);
   const [searchModal, setSearchModal] = useState(false);
@@ -219,7 +227,7 @@ export default function ReceptionPage() {
     {
       title: 'Action',
       key: 'action',
-      render: (_, record: any) => (
+      render: (_, record: QueueItem) => (
         <Space>
           <Button size="small" icon={<EditOutlined />}>
             Update
