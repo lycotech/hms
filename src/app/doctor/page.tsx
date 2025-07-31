@@ -55,7 +55,6 @@ import type { Patient, Prescription, Consultation } from '@/lib/types';
 
 const { Title, Text, Paragraph } = Typography;
 const { TextArea } = Input;
-const { TabPane } = Tabs;
 const { Panel } = Collapse;
 
 // Mock consultation queue
@@ -430,22 +429,32 @@ export default function DoctorPage() {
           </Col>
         </Row>
 
-        <Tabs activeKey={activeTab} onChange={setActiveTab}>
-          <TabPane tab="Consultation Queue" key="queue">
-            <Card title="Today's Consultations" className="mb-4">
-              <Table
-                dataSource={consultationQueue}
-                columns={queueColumns}
-                pagination={false}
-                rowKey="id"
-                size="small"
-              />
-            </Card>
-          </TabPane>
-
-          <TabPane tab="Patient Consultation" key="consultation" disabled={!selectedPatient}>
-            {selectedPatient && (
-              <Row gutter={16}>
+        <Tabs 
+          activeKey={activeTab} 
+          onChange={setActiveTab}
+          items={[
+            {
+              label: 'Consultation Queue',
+              key: 'queue',
+              children: (
+                <Card title="Today's Consultations" className="mb-4">
+                  <Table
+                    dataSource={consultationQueue}
+                    columns={queueColumns}
+                    pagination={false}
+                    rowKey="id"
+                    size="small"
+                  />
+                </Card>
+              )
+            },
+            {
+              label: 'Patient Consultation',
+              key: 'consultation',
+              disabled: !selectedPatient,
+              children: (
+                selectedPatient ? (
+                  <Row gutter={16}>
                 <Col span={16}>
                   <Card 
                     title={`Consultation - ${selectedPatient.firstName} ${selectedPatient.lastName}`}
@@ -640,9 +649,11 @@ export default function DoctorPage() {
                   </div>
                 </Col>
               </Row>
-            )}
-          </TabPane>
-        </Tabs>
+                ) : null
+              )
+            }
+          ]}
+        />
 
         {/* Prescription Modal */}
         <Modal

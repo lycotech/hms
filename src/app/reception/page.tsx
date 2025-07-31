@@ -38,7 +38,6 @@ import { usePatientStore } from '@/lib/store/patientStore';
 import type { Patient } from '@/lib/types';
 
 const { Title, Text } = Typography;
-const { TabPane } = Tabs;
 const { Option } = Select;
 
 export default function ReceptionPage() {
@@ -306,33 +305,35 @@ export default function ReceptionPage() {
 
         {/* Queue Management */}
         <Card>
-          <Tabs defaultActiveKey="current-queue">
-            <TabPane 
-              tab={
-                <Badge count={queueData.filter(q => q.status !== 'completed').length} offset={[10, 0]}>
-                  Current Queue
-                </Badge>
-              } 
-              key="current-queue"
-            >
-              <Table
+          <Tabs 
+            defaultActiveKey="current-queue"
+            items={[
+              {
+                label: (
+                  <Badge count={queueData.filter(q => q.status !== 'completed').length} offset={[10, 0]}>
+                    Current Queue
+                  </Badge>
+                ),
+                key: 'current-queue',
+                children: (
+                  <Table
                 dataSource={queueData}
                 columns={queueColumns}
                 rowKey="number"
                 pagination={{ pageSize: 10 }}
                 scroll={{ x: 800 }}
               />
-            </TabPane>
-
-            <TabPane 
-              tab={
-                <Badge count={waitingPatients.length} offset={[10, 0]}>
-                  Waiting Patients
-                </Badge>
-              } 
-              key="waiting-patients"
-            >
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                )
+              },
+              {
+                label: (
+                  <Badge count={waitingPatients.length} offset={[10, 0]}>
+                    Waiting Patients
+                  </Badge>
+                ),
+                key: 'waiting-patients',
+                children: (
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {waitingPatients.map(patient => (
                   <Card key={patient.id} size="small" hoverable>
                     <div className="flex items-center space-x-3">
@@ -366,8 +367,10 @@ export default function ReceptionPage() {
                   </Card>
                 ))}
               </div>
-            </TabPane>
-          </Tabs>
+                )
+              }
+            ]}
+          />
         </Card>
 
         {/* Patient Registration Modal */}

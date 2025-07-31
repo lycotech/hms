@@ -59,7 +59,6 @@ import type { Patient, Service, Payment } from '@/lib/types';
 
 const { Title, Text, Paragraph } = Typography;
 const { RangePicker } = DatePicker;
-const { TabPane } = Tabs;
 
 // Mock admin data
 const mockSystemStats = {
@@ -259,9 +258,16 @@ export default function AdminPage() {
           </Text>
         </div>
 
-        <Tabs activeKey={activeTab} onChange={setActiveTab}>
-          <TabPane tab="System Overview" key="overview">
-            {/* Key Metrics */}
+        <Tabs 
+          activeKey={activeTab} 
+          onChange={setActiveTab}
+          items={[
+            {
+              label: 'System Overview',
+              key: 'overview',
+              children: (
+                <div>
+                  {/* Key Metrics */}
             <Row gutter={16} style={{ marginBottom: '24px' }}>
               <Col span={6}>
                 <Card>
@@ -438,10 +444,15 @@ export default function AdminPage() {
                 </Col>
               </Row>
             </Card>
-          </TabPane>
-
-          <TabPane tab="Financial Reports" key="financial">
-            <Row gutter={16} style={{ marginBottom: '24px' }}>
+                </div>
+              )
+            },
+            {
+              label: 'Financial Reports',
+              key: 'financial',
+              children: (
+                <div>
+                  <Row gutter={16} style={{ marginBottom: '24px' }}>
               <Col span={6}>
                 <Card>
                   <Statistic
@@ -542,10 +553,15 @@ export default function AdminPage() {
                 </Button>
               </Col>
             </Row>
-          </TabPane>
-
-          <TabPane tab="Patient Analytics" key="analytics">
-            <Row gutter={16} style={{ marginBottom: '24px' }}>
+                </div>
+              )
+            },
+            {
+              label: 'Patient Analytics',
+              key: 'analytics',
+              children: (
+                <div>
+                  <Row gutter={16} style={{ marginBottom: '24px' }}>
               <Col span={8}>
                 <Card>
                   <Statistic
@@ -646,8 +662,11 @@ export default function AdminPage() {
                 </Card>
               </Col>
             </Row>
-          </TabPane>
-        </Tabs>
+                </div>
+              )
+            }
+          ]}
+        />
 
         {/* User Management Modal */}
         <Modal
@@ -657,9 +676,15 @@ export default function AdminPage() {
           footer={null}
           width={800}
         >
-          <Tabs defaultActiveKey="users">
-            <TabPane tab="Active Users" key="users">
-              <Button type="primary" icon={<UserOutlined />} style={{ marginBottom: '16px' }}>
+          <Tabs 
+            defaultActiveKey="users"
+            items={[
+              {
+                label: 'Active Users',
+                key: 'users',
+                children: (
+                  <div>
+                    <Button type="primary" icon={<UserOutlined />} style={{ marginBottom: '16px' }}>
                 Add New User
               </Button>
               <Table
@@ -695,17 +720,26 @@ export default function AdminPage() {
                 pagination={false}
                 size="small"
               />
-            </TabPane>
-            <TabPane tab="Permissions" key="permissions">
-              <Alert
+                  </div>
+                )
+              },
+              {
+                label: 'Permissions',
+                key: 'permissions',
+                children: (
+                  <div>
+                    <Alert
                 message="Role-based Access Control"
                 description="Manage permissions for different user roles and departments."
                 type="info"
                 style={{ marginBottom: '16px' }}
               />
               <div>Coming soon...</div>
-            </TabPane>
-          </Tabs>
+                  </div>
+                )
+              }
+            ]}
+          />
         </Modal>
 
         {/* System Settings Modal */}

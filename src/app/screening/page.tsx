@@ -46,7 +46,6 @@ import type { VitalSigns, VisualAcuity, Patient } from '@/lib/types';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
-const { TabPane } = Tabs;
 
 // Mock queue data for screening
 const mockScreeningQueue = [
@@ -329,22 +328,32 @@ export default function ScreeningPage() {
           </Col>
         </Row>
 
-        <Tabs activeKey={activeTab} onChange={setActiveTab}>
-          <TabPane tab="Queue Management" key="queue">
-            <Card title="Screening Queue" className="mb-4">
-              <Table
-                dataSource={screeningQueue}
-                columns={queueColumns}
-                pagination={false}
-                rowKey="id"
-                size="small"
-              />
-            </Card>
-          </TabPane>
-
-          <TabPane tab="Vital Signs" key="vitals" disabled={!selectedPatient}>
-            {selectedPatient && (
-              <Row gutter={16}>
+        <Tabs 
+          activeKey={activeTab} 
+          onChange={setActiveTab}
+          items={[
+            {
+              label: 'Queue Management',
+              key: 'queue',
+              children: (
+                <Card title="Screening Queue" className="mb-4">
+                  <Table
+                    dataSource={screeningQueue}
+                    columns={queueColumns}
+                    pagination={false}
+                    rowKey="id"
+                    size="small"
+                  />
+                </Card>
+              )
+            },
+            {
+              label: 'Vital Signs',
+              key: 'vitals',
+              disabled: !selectedPatient,
+              children: (
+                selectedPatient ? (
+                  <Row gutter={16}>
                 <Col span={16}>
                   <Card 
                     title={`Vital Signs - ${selectedPatient.firstName} ${selectedPatient.lastName}`}
@@ -454,9 +463,11 @@ export default function ScreeningPage() {
                   </div>
                 </Col>
               </Row>
-            )}
-          </TabPane>
-        </Tabs>
+                ) : null
+              )
+            }
+          ]}
+        />
 
         {/* Vital Signs Modal */}
         <Modal

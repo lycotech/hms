@@ -35,7 +35,6 @@ import { usePaymentStore } from '@/lib/store/paymentStore';
 import type { Prescription } from '@/lib/types';
 
 const { Text, Title } = Typography;
-const { TabPane } = Tabs;
 
 export default function PharmacyPage() {
   const [selectedPrescription, setSelectedPrescription] = useState<Prescription | null>(null);
@@ -350,16 +349,19 @@ export default function PharmacyPage() {
 
         {/* Main Prescription Management */}
         <Card>
-          <Tabs defaultActiveKey="pending">
-            <TabPane 
-              tab={
-                <Badge count={pendingPrescriptions.length} offset={[10, 0]}>
-                  Pending Prescriptions
-                </Badge>
-              } 
-              key="pending"
-            >
-              <div className="mb-4">
+          <Tabs 
+            defaultActiveKey="pending"
+            items={[
+              {
+                label: (
+                  <Badge count={pendingPrescriptions.length} offset={[10, 0]}>
+                    Pending Prescriptions
+                  </Badge>
+                ),
+                key: 'pending',
+                children: (
+                  <div>
+                    <div className="mb-4">
                 <Input
                   placeholder="Search prescriptions by patient name, prescription ID..."
                   prefix={<SearchOutlined />}
@@ -381,17 +383,18 @@ export default function PharmacyPage() {
                   !canDispenseMedication(record) ? 'bg-red-50' : 'bg-green-50'
                 }
               />
-            </TabPane>
-
-            <TabPane 
-              tab={
-                <Badge count={dispensedPrescriptions.length} offset={[10, 0]}>
-                  Dispensed Today
-                </Badge>
-              } 
-              key="dispensed"
-            >
-              <Table
+                  </div>
+                )
+              },
+              {
+                label: (
+                  <Badge count={dispensedPrescriptions.length} offset={[10, 0]}>
+                    Dispensed Today
+                  </Badge>
+                ),
+                key: 'dispensed',
+                children: (
+                  <Table
                 dataSource={dispensedPrescriptions}
                 columns={[
                   ...prescriptionColumns.filter(col => col.key !== 'action'),
@@ -410,8 +413,10 @@ export default function PharmacyPage() {
                 rowKey="id"
                 scroll={{ x: 1000 }}
               />
-            </TabPane>
-          </Tabs>
+                )
+              }
+            ]}
+          />
         </Card>
 
         {/* Dispensing Modal */}
