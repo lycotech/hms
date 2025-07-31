@@ -290,8 +290,10 @@ export const useQueueStore = create<QueueState>()(
         
         // Only update if real-time is still enabled
         if (!state.isRealTimeEnabled) {
-          clearInterval(realTimeInterval);
-          realTimeInterval = null;
+          if (realTimeInterval) {
+            clearInterval(realTimeInterval);
+            realTimeInterval = null;
+          }
           return;
         }
         
