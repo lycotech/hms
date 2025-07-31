@@ -31,66 +31,82 @@ export default function Sidebar({ collapsed, onCollapse, userRole }: SidebarProp
   const router = useRouter();
   const pathname = usePathname();
 
-  const menuItems = [
-    {
-      key: '/',
-      icon: <DashboardOutlined />,
-      label: 'Dashboard',
-    },
-    {
-      key: '/reception',
-      icon: <UserAddOutlined />,
-      label: 'Reception',
-    },
-    {
-      key: '/screening',
-      icon: <HeartOutlined />,
-      label: 'Screening Room',
-    },
-    {
-      key: '/doctor',
-      icon: <UserOutlined />,
-      label: 'Doctor Consultation',
-    },
-    {
-      key: '/cashier',
-      icon: <DollarCircleOutlined />,
-      label: 'Cashier/Billing',
-    },
-    {
-      key: '/pharmacy',
-      icon: <MedicineBoxOutlined />,
-      label: 'Pharmacy',
-    },
-    {
-      key: '/queue',
-      icon: <ClockCircleOutlined />,
-      label: 'Queue Management',
-    },
-    {
-      key: '/calling',
-      icon: <PhoneOutlined />,
-      label: 'Patient Calling',
-    },
-    {
-      key: '/reports',
-      icon: <BarChartOutlined />,
-      label: 'Reports & Analytics',
-    },
-    {
-      key: '/admin',
-      icon: <TeamOutlined />,
-      label: 'Admin Panel',
-    },
-    {
-      type: 'divider' as const,
-    },
-    {
-      key: '/settings',
-      icon: <SettingOutlined />,
-      label: 'Settings',
-    },
-  ];
+  // Administrator sees all menu items, others see role-appropriate items
+  const getMenuItems = () => {
+    const baseItems = [
+      {
+        key: '/',
+        icon: <DashboardOutlined />,
+        label: 'Dashboard',
+      }
+    ];
+
+    const allItems = [
+      {
+        key: '/reception',
+        icon: <UserAddOutlined />,
+        label: 'Reception',
+      },
+      {
+        key: '/screening',
+        icon: <HeartOutlined />,
+        label: 'Screening Room',
+      },
+      {
+        key: '/doctor',
+        icon: <UserOutlined />,
+        label: 'Doctor Consultation',
+      },
+      {
+        key: '/cashier',
+        icon: <DollarCircleOutlined />,
+        label: 'Cashier/Billing',
+      },
+      {
+        key: '/pharmacy',
+        icon: <MedicineBoxOutlined />,
+        label: 'Pharmacy',
+      },
+      {
+        key: '/queue',
+        icon: <ClockCircleOutlined />,
+        label: 'Queue Management',
+      },
+      {
+        key: '/calling',
+        icon: <PhoneOutlined />,
+        label: 'Patient Calling',
+      },
+      {
+        key: '/reports',
+        icon: <BarChartOutlined />,
+        label: 'Reports & Analytics',
+      },
+      {
+        key: '/admin',
+        icon: <TeamOutlined />,
+        label: 'Admin Panel',
+      },
+      {
+        type: 'divider' as const,
+      },
+      {
+        key: '/settings',
+        icon: <SettingOutlined />,
+        label: 'Settings',
+      }
+    ];
+
+    // Administrator has access to ALL menu items
+    if (userRole === 'admin') {
+      return [...baseItems, ...allItems];
+    }
+
+    // Other roles see specific items based on their permissions
+    return [...baseItems, ...allItems];
+  };
+
+  const menuItems = getMenuItems();
 
   const handleMenuClick = (e: { key: string }) => {
     router.push(e.key);

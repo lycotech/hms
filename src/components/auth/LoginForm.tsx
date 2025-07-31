@@ -79,7 +79,7 @@ export default function LoginForm() {
           boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
           borderRadius: '12px'
         }}
-        bodyStyle={{ padding: '40px' }}
+        styles={{ body: { padding: '40px' } }}
       >
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '32px' }}>

@@ -2,10 +2,7 @@
 
 import React, { useState } from 'react';
 import {
-  Row,
-  Col,
   Card,
-  Table,
   Tag,
   Button,
   Space,
@@ -21,8 +18,12 @@ import {
   Modal,
   Form,
   Switch,
-  Descriptions
+  Descriptions,
+  Row,
+  Col,
+  Table
 } from 'antd';
+import { ResponsiveRow, ResponsiveCol } from '@/components/common/ResponsiveGrid';
 // Removed unused Dayjs import
 import {
   DashboardOutlined,
@@ -436,9 +437,9 @@ export default function AdminPage() {
               key: 'financial',
               children: (
                 <div>
-                  <Row gutter={16} style={{ marginBottom: '24px' }}>
-              <Col span={6}>
-                <Card>
+                  <ResponsiveRow style={{ marginBottom: '24px' }}>
+              <ResponsiveCol xs={24} sm={12} md={6}>
+                <Card className="responsive-card">
                   <Statistic
                     title="Today's Revenue"
                     value={mockFinancialData.todayRevenue}
@@ -447,9 +448,9 @@ export default function AdminPage() {
                     prefix={<MoneyCollectOutlined />}
                   />
                 </Card>
-              </Col>
-              <Col span={6}>
-                <Card>
+              </ResponsiveCol>
+              <ResponsiveCol xs={24} sm={12} md={6}>
+                <Card className="responsive-card">
                   <Statistic
                     title="Weekly Revenue"
                     value={mockFinancialData.weeklyRevenue}
@@ -458,9 +459,9 @@ export default function AdminPage() {
                     prefix={<LineChartOutlined />}
                   />
                 </Card>
-              </Col>
-              <Col span={6}>
-                <Card>
+              </ResponsiveCol>
+              <ResponsiveCol xs={24} sm={12} md={6}>
+                <Card className="responsive-card">
                   <Statistic
                     title="Completed Payments"
                     value={mockFinancialData.completedPayments}
@@ -468,9 +469,9 @@ export default function AdminPage() {
                     prefix={<CheckCircleOutlined />}
                   />
                 </Card>
-              </Col>
-              <Col span={6}>
-                <Card>
+              </ResponsiveCol>
+              <ResponsiveCol xs={24} sm={12} md={6}>
+                <Card className="responsive-card">
                   <Statistic
                     title="Pending Payments"
                     value={mockFinancialData.pendingCount}
@@ -478,8 +479,8 @@ export default function AdminPage() {
                     prefix={<ClockCircleOutlined />}
                   />
                 </Card>
-              </Col>
-            </Row>
+              </ResponsiveCol>
+            </ResponsiveRow>
 
             <Row gutter={16}>
               <Col span={16}>

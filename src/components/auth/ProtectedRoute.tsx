@@ -47,8 +47,13 @@ export default function ProtectedRoute({
     return <LoginForm />;
   }
 
+  // Administrator has universal access - bypass all permission checks
+  if (user?.role === 'admin') {
+    return <>{children}</>;
+  }
+
   // Check route permissions based on user role
-  if (user && !roleRoutePermissions[user.role].includes(pathname)) {
+  if (user && !roleRoutePermissions[user.role].includes(pathname) && !roleRoutePermissions[user.role].includes('*')) {
     return (
       <Result
         status="403"

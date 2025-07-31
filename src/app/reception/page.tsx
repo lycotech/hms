@@ -2,10 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { 
-  Row, 
-  Col, 
   Card, 
-  Table, 
   Button, 
   Form, 
   Input, 
@@ -20,8 +17,12 @@ import {
   Tabs,
   Typography,
   Avatar,
-  Divider
+  Divider,
+  Row,
+  Col
 } from 'antd';
+import { ResponsiveRow, ResponsiveCol } from '@/components/common/ResponsiveGrid';
+import ResponsiveTable from '@/components/common/ResponsiveTable';
 import { 
   UserAddOutlined,
   SearchOutlined,
@@ -192,7 +193,8 @@ export default function ReceptionPage() {
     {
       title: 'Department',
       dataIndex: 'department',
-      key: 'department'
+      key: 'department',
+      responsive: ['lg' as const] // Hide on mobile/tablet
     },
     {
       title: 'Time',
@@ -221,6 +223,7 @@ export default function ReceptionPage() {
     {
       title: 'Action',
       key: 'action',
+      responsive: ['md' as const], // Hide on small screens
       render: () => (
         <Space>
           <Button size="small" icon={<EditOutlined />}>
@@ -234,12 +237,34 @@ export default function ReceptionPage() {
     }
   ];
 
+  // Mobile card render function for queue
+  const renderQueueMobileCard = (record: { number: number; patientName: string; status: string; time: string; department: string }) => (
+    <div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+        <Badge count={record.number} style={{ backgroundColor: '#1890ff' }} />
+        <Tag color={record.status === 'waiting' ? 'orange' : record.status === 'called' ? 'blue' : 'green'}>
+          {record.status.toUpperCase()}
+        </Tag>
+      </div>
+      <div style={{ fontWeight: 'bold', marginBottom: 4 }}>{record.patientName}</div>
+      <div style={{ fontSize: '12px', color: '#666' }}>
+        <Space>
+          <ClockCircleOutlined />
+          {record.time}
+        </Space>
+      </div>
+      <div style={{ fontSize: '12px', color: '#666', marginTop: 4 }}>
+        Department: {record.department}
+      </div>
+    </div>
+  );
+
   return (
       <div className="p-6">
         {/* Reception Statistics */}
-        <Row gutter={[16, 16]} className="mb-6">
-          <Col xs={24} sm={6}>
-            <Card>
+        <ResponsiveRow className="mb-6">
+          <ResponsiveCol xs={24} sm={12} md={6}>
+            <Card className="responsive-card">
               <Statistic
                 title="Patients Today"
                 value={todayPatients.length}
@@ -247,9 +272,9 @@ export default function ReceptionPage() {
                 valueStyle={{ color: '#1890ff' }}
               />
             </Card>
-          </Col>
-          <Col xs={24} sm={6}>
-            <Card>
+          </ResponsiveCol>
+          <ResponsiveCol xs={24} sm={12} md={6}>
+            <Card className="responsive-card">
               <Statistic
                 title="In Queue"
                 value={queueData.filter(q => q.status === 'waiting').length}
@@ -257,9 +282,9 @@ export default function ReceptionPage() {
                 valueStyle={{ color: '#faad14' }}
               />
             </Card>
-          </Col>
-          <Col xs={24} sm={6}>
-            <Card>
+          </ResponsiveCol>
+          <ResponsiveCol xs={24} sm={12} md={6}>
+            <Card className="responsive-card">
               <Statistic
                 title="In Service"
                 value={queueData.filter(q => q.status === 'in-service').length}
@@ -267,9 +292,9 @@ export default function ReceptionPage() {
                 valueStyle={{ color: '#52c41a' }}
               />
             </Card>
-          </Col>
-          <Col xs={24} sm={6}>
-            <Card>
+          </ResponsiveCol>
+          <ResponsiveCol xs={24} sm={12} md={6}>
+            <Card className="responsive-card">
               <Statistic
                 title="Completed"
                 value={queueData.filter(q => q.status === 'completed').length}
@@ -277,8 +302,8 @@ export default function ReceptionPage() {
                 valueStyle={{ color: '#722ed1' }}
               />
             </Card>
-          </Col>
-        </Row>
+          </ResponsiveCol>
+        </ResponsiveRow>
 
         {/* Queue Management */}
         <Card>
@@ -293,13 +318,13 @@ export default function ReceptionPage() {
                 ),
                 key: 'current-queue',
                 children: (
-                  <Table
-                dataSource={queueData}
-                columns={queueColumns}
-                rowKey="number"
-                pagination={{ pageSize: 10 }}
-                scroll={{ x: 800 }}
-              />
+                  <ResponsiveTable
+                    dataSource={queueData}
+                    columns={queueColumns}
+                    rowKey="number"
+                    pagination={{ pageSize: 10 }}
+                    mobileCardRender={renderQueueMobileCard}
+                  />
                 )
               },
               {

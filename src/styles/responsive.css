@@ -1,0 +1,278 @@
+/* Responsive utilities for HMS */
+
+/* Mobile-first breakpoints */
+@media (max-width: 576px) {
+  /* Extra small devices (phones) */
+  .responsive-table {
+    font-size: 12px;
+  }
+  
+  .responsive-card {
+    margin-bottom: 12px;
+  }
+  
+  .responsive-spacing {
+    padding: 8px !important;
+    margin: 8px !important;
+  }
+  
+  .hide-on-mobile {
+    display: none !important;
+  }
+  
+  .mobile-only {
+    display: block !important;
+  }
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+  /* Small devices (tablets) */
+  .responsive-table {
+    font-size: 13px;
+  }
+  
+  .responsive-card {
+    margin-bottom: 16px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 992px) {
+  /* Medium devices (small laptops) */
+  .responsive-table {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 992px) {
+  /* Hide on tablet and mobile */
+  .hide-on-tablet {
+    display: none !important;
+  }
+  
+  .tablet-mobile-only {
+    display: block !important;
+  }
+}
+
+@media (min-width: 993px) {
+  /* Desktop only */
+  .desktop-only {
+    display: block !important;
+  }
+  
+  .mobile-only,
+  .tablet-mobile-only {
+    display: none !important;
+  }
+}
+
+/* Table responsiveness */
+.ant-table-wrapper {
+  overflow-x: auto;
+}
+
+@media (max-width: 768px) {
+  .ant-table-wrapper .ant-table-thead > tr > th,
+  .ant-table-wrapper .ant-table-tbody > tr > td {
+    padding: 8px 4px !important;
+    font-size: 12px !important;
+  }
+  
+  .ant-table-wrapper .ant-table-column-title {
+    font-size: 11px !important;
+  }
+}
+
+/* Card responsiveness */
+@media (max-width: 768px) {
+  .ant-card {
+    margin-bottom: 12px;
+  }
+  
+  .ant-card-body {
+    padding: 16px !important;
+  }
+  
+  .ant-card-head {
+    padding: 0 16px !important;
+  }
+  
+  .ant-card-head-title {
+    font-size: 14px !important;
+  }
+}
+
+/* Form responsiveness */
+@media (max-width: 768px) {
+  .ant-form-item {
+    margin-bottom: 16px;
+  }
+  
+  .ant-form-item-label {
+    font-size: 13px;
+  }
+  
+  .ant-input,
+  .ant-select-selector,
+  .ant-picker {
+    font-size: 14px !important;
+    height: 40px !important;
+  }
+  
+  .ant-btn {
+    height: 40px !important;
+    font-size: 14px !important;
+  }
+}
+
+/* Statistics responsiveness */
+@media (max-width: 768px) {
+  .ant-statistic {
+    text-align: center;
+  }
+  
+  .ant-statistic-title {
+    font-size: 12px !important;
+  }
+  
+  .ant-statistic-content {
+    font-size: 18px !important;
+  }
+}
+
+/* Row and Col responsiveness */
+@media (max-width: 768px) {
+  .responsive-col {
+    margin-bottom: 16px;
+  }
+}
+
+/* Progress bars */
+@media (max-width: 768px) {
+  .ant-progress-text {
+    font-size: 12px !important;
+  }
+}
+
+/* Responsive text sizes */
+.text-responsive-sm {
+  font-size: 12px;
+}
+
+.text-responsive-md {
+  font-size: 14px;
+}
+
+.text-responsive-lg {
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  .text-responsive-sm {
+    font-size: 10px;
+  }
+  
+  .text-responsive-md {
+    font-size: 12px;
+  }
+  
+  .text-responsive-lg {
+    font-size: 14px;
+  }
+}
+
+/* Spacing utilities */
+.p-responsive {
+  padding: 24px;
+}
+
+.m-responsive {
+  margin: 24px;
+}
+
+@media (max-width: 768px) {
+  .p-responsive {
+    padding: 16px;
+  }
+  
+  .m-responsive {
+    margin: 16px;
+  }
+}
+
+@media (max-width: 576px) {
+  .p-responsive {
+    padding: 12px;
+  }
+  
+  .m-responsive {
+    margin: 12px;
+  }
+}
+
+/* Button responsiveness */
+@media (max-width: 768px) {
+  .responsive-button {
+    width: 100% !important;
+    margin-bottom: 8px;
+  }
+  
+  .ant-space-horizontal .ant-space-item {
+    display: block;
+    width: 100%;
+  }
+}
+
+/* Typography responsiveness */
+@media (max-width: 768px) {
+  h1, .ant-typography h1 {
+    font-size: 20px !important;
+  }
+  
+  h2, .ant-typography h2 {
+    font-size: 18px !important;
+  }
+  
+  h3, .ant-typography h3 {
+    font-size: 16px !important;
+  }
+  
+  h4, .ant-typography h4 {
+    font-size: 14px !important;
+  }
+}
+
+/* Drawer responsive behavior */
+@media (max-width: 768px) {
+  .ant-drawer {
+    width: 100% !important;
+  }
+  
+  .ant-drawer-content-wrapper {
+    width: 100% !important;
+  }
+}
+
+/* Modal responsive behavior */
+@media (max-width: 768px) {
+  .ant-modal {
+    width: 95% !important;
+    margin: 10px;
+  }
+  
+  .ant-modal-content {
+    margin: 0;
+  }
+}
+
+/* Tabs responsive behavior */
+@media (max-width: 768px) {
+  .ant-tabs-tab {
+    padding: 8px 12px !important;
+    font-size: 12px !important;
+  }
+  
+  .ant-tabs-tab-btn {
+    font-size: 12px !important;
+  }
+}

@@ -7,8 +7,13 @@ import { useAuth } from '@/lib/context/AuthContext';
 export default function CallingSystemPage() {
   const { user } = useAuth();
 
-  // Determine default department based on user role
+  // Determine default department based on user role - Admin gets full access
   const getDefaultDepartment = () => {
+    // Administrator has access to all departments by default
+    if (user?.role === 'admin') {
+      return 'general';
+    }
+    
     switch (user?.role) {
       case 'doctor':
         return 'general';
@@ -21,6 +26,7 @@ export default function CallingSystemPage() {
     }
   };
 
+  // Administrator has universal access to all departments
   const showAllDepartments = user?.role === 'admin';
 
   return (

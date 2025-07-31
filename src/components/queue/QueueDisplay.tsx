@@ -68,7 +68,7 @@ export default function QueueDisplay({
 
   // Auto-start real-time updates
   useEffect(() => {
-    if (autoRefresh && !isRealTimeEnabled) {
+    if (autoRefresh) {
       startRealTimeUpdates();
     }
     
@@ -77,7 +77,7 @@ export default function QueueDisplay({
         stopRealTimeUpdates();
       }
     };
-  }, [autoRefresh, isRealTimeEnabled, startRealTimeUpdates, stopRealTimeUpdates]);
+  }, [autoRefresh]); // Removed problematic dependencies that cause infinite loops
 
   // Priority color mapping
   const getPriorityColor = (priority: Priority) => {

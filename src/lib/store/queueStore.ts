@@ -288,6 +288,13 @@ export const useQueueStore = create<QueueState>()(
       realTimeInterval = setInterval(() => {
         const state = get();
         
+        // Only update if real-time is still enabled
+        if (!state.isRealTimeEnabled) {
+          clearInterval(realTimeInterval);
+          realTimeInterval = null;
+          return;
+        }
+        
         // Simulate random updates (patients arriving, status changes, etc.)
         // Update estimated wait times
         const newQueues = { ...state.queues };

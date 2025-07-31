@@ -45,7 +45,7 @@ export default function PublicQueueDisplay() {
     return () => {
       clearInterval(timeInterval);
     };
-  }, [startRealTimeUpdates]);
+  }, []); // Empty dependency array to run only once on mount
 
   // Department configurations for display
   const departments: { key: Department; name: string; color: string }[] = [
@@ -138,7 +138,7 @@ export default function PublicQueueDisplay() {
                   borderColor: dept.color,
                   borderWidth: 2
                 }}
-                bodyStyle={{ padding: '20px' }}
+                styles={{ body: { padding: '20px' } }}
               >
                 <div style={{ 
                   color: dept.color, 

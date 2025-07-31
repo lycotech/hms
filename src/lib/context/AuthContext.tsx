@@ -42,7 +42,7 @@ const mockUsers: (User & { password: string })[] = [
     email: 'admin@cityhospital.com',
     role: 'admin',
     department: 'Administration',
-    permissions: ['*'], // All permissions
+    permissions: ['*'], // Unlimited access to all features
     isActive: true,
     lastLogin: new Date().toISOString()
   },
@@ -130,12 +130,12 @@ const mockUsers: (User & { password: string })[] = [
 
 // Role-based route permissions
 export const roleRoutePermissions: Record<UserRole, string[]> = {
-  admin: ['/', '/admin', '/reception', '/screening', '/doctor', '/pharmacy', '/cashier'],
-  doctor: ['/', '/doctor', '/screening'],
-  nurse: ['/', '/screening', '/reception'],
-  receptionist: ['/', '/reception'],
-  pharmacist: ['/', '/pharmacy'],
-  cashier: ['/', '/cashier']
+  admin: ['*'], // Admin has access to ALL routes
+  doctor: ['/', '/doctor', '/screening', '/queue', '/calling'],
+  nurse: ['/', '/screening', '/reception', '/queue', '/calling'],
+  receptionist: ['/', '/reception', '/queue'],
+  pharmacist: ['/', '/pharmacy', '/queue'],
+  cashier: ['/', '/cashier', '/queue']
 };
 
 export function AuthProvider({ children }: { children: ReactNode }) {
@@ -192,12 +192,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const hasPermission = (permission: string): boolean => {
     if (!user) return false;
-    if (user.permissions.includes('*')) return true; // Admin has all permissions
+    // Admin has unlimited access to all permissions
+    if (user.role === 'admin' || user.permissions.includes('*')) return true;
     return user.permissions.includes(permission);
   };
 
   const hasRole = (roles: UserRole | UserRole[]): boolean => {
     if (!user) return false;
+    // Admin role automatically satisfies any role requirement
+    if (user.role === 'admin') return true;
     const roleArray = Array.isArray(roles) ? roles : [roles];
     return roleArray.includes(user.role);
   };
@@ -234,7 +237,7 @@ export function withAuth<P extends object>(
   requiredRoles?: UserRole[]
 ) {
   return function AuthenticatedComponent(props: P) {
-    const { isAuthenticated, hasPermission, hasRole, isLoading } = useAuth();
+    const { isAuthenticated, hasPermission, hasRole, isLoading, user } = useAuth();
 
     if (isLoading) {
       return <div>Loading...</div>; // Or your loading component
@@ -242,6 +245,11 @@ export function withAuth<P extends object>(
 
     if (!isAuthenticated) {
       return <div>Please log in to access this page.</div>;
+    }
+
+    // Administrator has universal access - bypass all permission checks
+    if (user?.role === 'admin') {
+      return <Component {...props} />;
     }
 
     if (requiredPermissions && !requiredPermissions.every(hasPermission)) {

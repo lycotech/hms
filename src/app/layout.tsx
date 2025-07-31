@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import "../styles/responsive.css";
 import { ConfigProvider } from 'antd';
 import { AuthProvider } from '@/lib/context/AuthContext';
 import AppWrapper from '@/components/layout/AppWrapper';
